@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///home/sakura/Documents/Github-Actions/ec2-nodejs-app/.github/workflows/deploy.yaml"
+    }
+}
