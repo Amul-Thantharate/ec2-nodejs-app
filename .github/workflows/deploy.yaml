@@ -18,4 +18,14 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/cicd .
       - name: Push docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/cicd
-        
+
+  deploy:
+    needs: build
+    runs-on: aws-ec2
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/cicd
+      - name: Delete existing container
+        run: docker rm -f cicd || true
+      - name: Run container
+        run: docker run -d --name cicd -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/cicd
